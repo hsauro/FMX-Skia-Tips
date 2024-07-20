@@ -1,5 +1,5 @@
 # FMX-Skia-Tips
-A list of tips for users of skia and FmX
+A list of tips for users of skia and FMX
 
 **1. How do I draw a line or bezier curve witha rounded end?**
    
