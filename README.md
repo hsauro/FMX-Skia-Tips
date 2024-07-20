@@ -62,5 +62,30 @@ The code above will generate the following output:
 
 [![enter image description here][1]][1]
 
-
   [1]: https://i.sstatic.net/UBR6w.png
+
+**3. How do I draw a bezier curve using skia?**
+
+  procedure TfrmMain.SkPaintBox2Draw(ASender: TObject; const ACanvas: ISkCanvas;
+    const ADest: TRectF; const AOpacity: Single);
+var LPaint :ISkPaint;
+    PathBuilder : ISkPathBuilder;
+    Path : ISkPath;
+begin
+  ACanvas.Save;
+  try
+   LPaint := TSkPaint.Create (TSKPaintStyle.Stroke);
+   LPaint.AntiAlias := True;
+   LPaint.StrokeWidth := 2;
+   LPaint.Color := claRed;
+
+   PathBuilder := TSkPathBuilder.Create;
+   PathBuilder.MoveTo(10, 10);
+   PathBuilder.CubicTo(TPointF.Create(50, 20), TPointF.Create(150, 140), TPointF.Create(190, 90));
+
+  ACanvas.DrawPath(PathBuilder.Detach, LPaint);
+  finally
+    ACanvas.Restore;
+  end;
+end;
+
