@@ -18,9 +18,9 @@ To draw a line with a rounded end in skia you need to change the StrokeCap to Ro
       ACanvas.DrawLine(x1, y1, x2, y2, LPaint);
     end;
 
-2. How do I create a dotted line using skia4Delphi?
+**2. How do I create a dotted line using skia4Delphi?**
 
-.It's fairly straightforward to create a dotted line. It relies on using PathEffect and the method MakeDash.
+It's fairly straightforward to create a dotted line. It relies on using PathEffect and the method MakeDash.
 
 The following example uses a TSkPaintBox which is the skia enabled equivalent of the usual TPaintBox in Delphi.
 
