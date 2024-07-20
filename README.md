@@ -66,12 +66,12 @@ The code above will generate the following output:
 
 **3. How do I draw a bezier curve using skia?**
 
-  procedure TfrmMain.SkPaintBox2Draw(ASender: TObject; const ACanvas: ISkCanvas;
-    const ADest: TRectF; const AOpacity: Single);
-var LPaint :ISkPaint;
-    PathBuilder : ISkPathBuilder;
-    Path : ISkPath;
-begin
+     procedure TfrmMain.SkPaintBox2Draw(ASender: TObject; const ACanvas: ISkCanvas;
+       const ADest: TRectF; const AOpacity: Single);
+     var LPaint :ISkPaint;
+         PathBuilder : ISkPathBuilder;
+        Path : ISkPath;
+     begin
   ACanvas.Save;
   try
    LPaint := TSkPaint.Create (TSKPaintStyle.Stroke);
@@ -87,5 +87,5 @@ begin
   finally
     ACanvas.Restore;
   end;
-end;
+    end;
 
