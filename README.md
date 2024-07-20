@@ -72,20 +72,20 @@ The code above will generate the following output:
          PathBuilder : ISkPathBuilder;
         Path : ISkPath;
      begin
-  ACanvas.Save;
-  try
-   LPaint := TSkPaint.Create (TSKPaintStyle.Stroke);
-   LPaint.AntiAlias := True;
-   LPaint.StrokeWidth := 2;
-   LPaint.Color := claRed;
+       ACanvas.Save;
+       try
+        LPaint := TSkPaint.Create (TSKPaintStyle.Stroke);
+        LPaint.AntiAlias := True;
+        LPaint.StrokeWidth := 2;
+        LPaint.Color := claRed;
 
-   PathBuilder := TSkPathBuilder.Create;
-   PathBuilder.MoveTo(10, 10);
-   PathBuilder.CubicTo(TPointF.Create(50, 20), TPointF.Create(150, 140), TPointF.Create(190, 90));
+        PathBuilder := TSkPathBuilder.Create;
+        PathBuilder.MoveTo(10, 10);
+        PathBuilder.CubicTo(TPointF.Create(50, 20), TPointF.Create(150, 140), TPointF.Create(190, 90));
 
-  ACanvas.DrawPath(PathBuilder.Detach, LPaint);
-  finally
-    ACanvas.Restore;
-  end;
+        ACanvas.DrawPath(PathBuilder.Detach, LPaint);
+      finally
+        ACanvas.Restore;
+       end;
     end;
 
