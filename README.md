@@ -13,6 +13,7 @@ A list of tips for users of skia and FMX
 9. How to draw an oval
 10. How to draw arcs
 11. How to load an image
+12. How to create a fill of lines hatch horizontal lines
 
 **1. How to draw a line or bezier curve witha rounded end?**
    
@@ -283,6 +284,49 @@ end;
       
           Image := TSKImage.MakeFromEncodedFile('image.png');
           ACanvas.DrawImage(Image, 0, 0, LPaint);
+        finally
+          ACanvas.Restore
+        end;
+      end;
+
+**12. 12. How to create a fill of lines hatch horizontal lines**
+
+      procedure TfrmMain.SkPaintBox18Draw(ASender: TObject; const ACanvas: ISkCanvas;
+          const ADest: TRectF; const AOpacity: Single);
+      var LPaintFill, LPaintStroke :ISkPaint;
+          PathBuilder : ISkPathBuilder;
+          Path : ISkPath;
+          PathEffect : ISkPathEffect;
+          m : TMatrix;  // Comes from Math.Vectors
+      begin
+        ACanvas.Save;
+        try
+          LPaintFill := TSkPaint.Create (TSKPaintStyle.Fill);
+          LPaintFill.AntiAlias := True;
+      
+          LPaintStroke := TSkPaint.Create (TSKPaintStyle.Stroke);
+          LPaintStroke.AntiAlias := True;
+
+          // Create a diamond
+          PathBuilder := TSkPathBuilder.Create;
+          PathBuilder.MoveTo(0, 150 / 2);
+          PathBuilder.LineTo(150 / 2, 0);
+          PathBuilder.LineTo(150, 150 / 2);
+          PathBuilder.LineTo(150 / 2, 150);
+          PathBuilder.Close();
+          Path := PathBuilder.Detach;
+      
+          LPaintFill.StrokeWidth := 1;
+          // Set the distance between the lines
+          m := TMatrix.CreateScaling (1, 20);
+          // Create parallel lines
+          PathEffect := TSkPathEffect.Make2DLine(1, m);
+          LPaintFill.PathEffect := PathEffect;
+          ACanvas.DrawPath(Path, LPaintFill);
+      
+          // Put a border aroudn the hatch
+          LPaintStroke.StrokeWidth := 1;
+          ACanvas.DrawPath (Path, LPaintStroke);
         finally
           ACanvas.Restore
         end;
