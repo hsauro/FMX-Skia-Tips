@@ -126,3 +126,22 @@ The code above will generate the following output:
         end;
       end;
 
+**5. How do I clear the canvas?**
+
+      procedure TfrmMain.SkPaintBox4Draw(ASender: TObject; const ACanvas: ISkCanvas;
+          const ADest: TRectF; const AOpacity: Single);
+      var LPaint :ISkPaint;
+      begin
+        ACanvas.Save;
+        try
+          LPaint := TSkPaint.Create (TSKPaintStyle.Stroke);
+      
+          LPaint.Style :=  TSkPaintStyle.Fill;
+          LPaint.Color := TAlphaColors.White;
+          ACanvas.DrawRect(ADest, LPaint);
+      
+        finally
+          ACanvas.Restore
+        end;
+      end;
+
