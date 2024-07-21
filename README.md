@@ -2,15 +2,16 @@
 
 A list of tips for users of skia and FMX
 
-1. How do I draw a line or bezier curve witha rounded end?
-2. How do I create a dotted line?
-3. How do I draw a bezier curve using skia?
+1. How to draw a line or bezier curve witha rounded end?
+2. How to create a dotted line?
+3. How to draw a bezier curve using skia?
 4. How to draw circles
 5. How do I clear the canvas?
 6. How to draw a rounded rectangle?
+7. How to draw some Text?
   
 
-**1. How do I draw a line or bezier curve witha rounded end?**
+**1. How to draw a line or bezier curve witha rounded end?**
    
 To draw a line with a rounded end in skia you need to change the StrokeCap to Round. Here is a simple example using Delphi:
 
@@ -27,7 +28,7 @@ To draw a line with a rounded end in skia you need to change the StrokeCap to Ro
       ACanvas.DrawLine(x1, y1, x2, y2, LPaint);
     end;
 
-**2. How do I create a dotted line?**
+**2. How to create a dotted line?**
 
 It's fairly straightforward to create a dotted line. It relies on using PathEffect and the method MakeDash.
 
@@ -73,7 +74,7 @@ The code above will generate the following output:
 
   [1]: https://i.sstatic.net/UBR6w.png
 
-**3. How do I draw a bezier curve using skia?**
+**3. How to draw a bezier curve using skia?**
 
      procedure TfrmMain.SkPaintBox2Draw(ASender: TObject; const ACanvas: ISkCanvas;
        const ADest: TRectF; const AOpacity: Single);
@@ -173,3 +174,28 @@ The code above will generate the following output:
         end;
       end;
 
+**7. How to draw some text**
+
+    procedure TfrmMain.SkPaintBox13Draw(ASender: TObject; const ACanvas: ISkCanvas;
+        const ADest: TRectF; const AOpacity: Single);
+    var LPaint :ISkPaint;
+        LFont : ISkFont;
+        LTypeFace : ISKTypeFace;
+        LBlob : ISkTextBlob;
+    begin
+      ACanvas.Save;
+      try
+        LPaint := TSkPaint.Create (TSKPaintStyle.Stroke);
+        LPaint.AntiAlias := True;
+    
+        LTypeface := TSkTypeface.MakeFromName('Arial', TSkFontStyle.Normal);
+        LFont := TSkFont.Create (LTypeface, 18, 1);
+    
+        LBlob := TSkTextBlob.MakeFromText('Some Text using Arial', LFont);
+        LPaint.Style := TSKPaintStyle.Fill;
+        LPaint.Color := claIndigo;
+        ACanvas.DrawTextBlob(LBlob, 10, 30, LPaint);
+      finally
+        ACanvas.Restore
+      end;
+    end;
