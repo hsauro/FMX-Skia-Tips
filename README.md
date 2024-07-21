@@ -92,8 +92,8 @@ The code above will generate the following output:
 **4. How to draw circles**
 
     procedure TfrmMain.SkPaintBox3Draw(ASender: TObject; const ACanvas: ISkCanvas;
-    const ADest: TRectF; const AOpacity: Single);
-   var LPaint :ISkPaint;
+        const ADest: TRectF; const AOpacity: Single);
+    var LPaint :ISkPaint;
    begin
     ACanvas.Save;
     try
