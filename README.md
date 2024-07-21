@@ -289,7 +289,7 @@ end;
         end;
       end;
 
-**12. 12. How to create a fill of lines hatch horizontal lines**
+**12. How to create a fill of lines hatch horizontal lines**
 
       procedure TfrmMain.SkPaintBox18Draw(ASender: TObject; const ACanvas: ISkCanvas;
           const ADest: TRectF; const AOpacity: Single);
