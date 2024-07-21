@@ -10,8 +10,8 @@ A list of tips for users of skia and FMX
 6. How to draw a rounded rectangle
 7. How to draw some Text
 8. How to draw a simple linear gradient
-9. How to draw an oval.
-10.   
+9. How to draw an oval
+10. How to draw arcs
 
 **1. How to draw a line or bezier curve witha rounded end?**
    
@@ -243,3 +243,27 @@ The code above will generate the following output:
         ACanvas.Restore
       end;
     end;
+
+**10. How to draw arcs**
+
+procedure TfrmMain.SkPaintBox16Draw(ASender: TObject; const ACanvas: ISkCanvas;
+    const ADest: TRectF; const AOpacity: Single);
+var LPaint :ISkPaint;
+begin
+  ACanvas.Save;
+  try
+    LPaint := TSkPaint.Create (TSKPaintStyle.Stroke);
+    LPaint.AntiAlias := True;
+
+    LPaint.StrokeWidth := 3;
+    LPaint.Color := TAlphaColors.Blue;
+    // Open arc
+    ACanvas.DrawArc(TRectF.Create(40, 60, 120, 140), 0, 255, False, LPaint);
+
+    LPaint.Color := TAlphaColors.Red;
+    // Closed arc
+    ACanvas.DrawArc(TRectF.Create(20, 20, 170, 170), 0, 255, True, LPaint);
+  finally
+    ACanvas.Restore
+  end;
+end;
