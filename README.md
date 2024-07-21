@@ -194,7 +194,10 @@ The code above will generate the following output:
         LBlob := TSkTextBlob.MakeFromText('Some Text using Arial', LFont);
         LPaint.Style := TSKPaintStyle.Fill;
         LPaint.Color := claIndigo;
-        ACanvas.DrawTextBlob(LBlob, 10, 30, LPaint);
+        ACanvas.DrawTextBlob(LBlob, 10, 40, LPaint);
+    
+        LPaint.Color := claDarkGreen;
+        ACanvas.DrawSimpleText('Some simple text', 10, 100, LFont, LPaint);
       finally
         ACanvas.Restore
       end;
