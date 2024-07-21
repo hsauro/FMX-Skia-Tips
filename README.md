@@ -110,7 +110,9 @@ The code above will generate the following output:
       
           LPaint.Color := claOrange;
           ACanvas.DrawCircle(TPointF.Create(170, 170), 15, LPaint);
-      
+
+          // Draw two circles with fill and stroke at same position
+          // using DrawCircle that takes the center point
           LPaint.Color := claOrange;
           LPaint.Style := TSkPaintStyle.Fill;
           ACanvas.DrawCircle(TPointF.Create(110, 160), 15, LPaint);
