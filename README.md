@@ -12,6 +12,7 @@ A list of tips for users of skia and FMX
 8. How to draw a simple linear gradient
 9. How to draw an oval
 10. How to draw arcs
+11. How to load an image
 
 **1. How to draw a line or bezier curve witha rounded end?**
    
@@ -267,3 +268,22 @@ begin
     ACanvas.Restore
   end;
 end;
+
+**11. How to load an image**
+
+      procedure TfrmMain.SkPaintBox17Draw(ASender: TObject; const ACanvas: ISkCanvas;
+          const ADest: TRectF; const AOpacity: Single);
+      var LPaint :ISkPaint;
+          Image : ISKImage;
+      begin
+        ACanvas.Save;
+        try
+          LPaint := TSkPaint.Create (TSKPaintStyle.Stroke);
+          LPaint.AntiAlias := True;
+      
+          Image := TSKImage.MakeFromEncodedFile('image.png');
+          ACanvas.DrawImage(Image, 0, 0, LPaint);
+        finally
+          ACanvas.Restore
+        end;
+      end;
