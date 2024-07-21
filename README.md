@@ -91,23 +91,36 @@ The code above will generate the following output:
 
 **4. How to draw circles**
 
-    procedure TfrmMain.SkPaintBox3Draw(ASender: TObject; const ACanvas: ISkCanvas;
-        const ADest: TRectF; const AOpacity: Single);
-    var LPaint :ISkPaint;
-    begin
-     ACanvas.Save;
-     try
-       LPaint := TSkPaint.Create (TSKPaintStyle.Stroke);
-       LPaint.AntiAlias := True;
-
-       LPaint.StrokeWidth := 2;
-       ACanvas.DrawCircle(TPointF.Create(50, 50), 20, LPaint);
-       ACanvas.DrawCircle(TPointF.Create(150, 100), 25, LPaint);
-
-       LPaint.Style := TSkPaintStyle.Fill;
-       ACanvas.DrawCircle(TPointF.Create(50, 120), 15, LPaint);
-     finally
-       ACanvas.Restore
-     end;
-    end;
+      procedure TfrmMain.SkPaintBox3Draw(ASender: TObject; const ACanvas: ISkCanvas;
+          const ADest: TRectF; const AOpacity: Single);
+      var LPaint :ISkPaint;
+      begin
+        ACanvas.Save;
+        try
+          LPaint := TSkPaint.Create (TSKPaintStyle.Stroke);
+          LPaint.AntiAlias := True;
+      
+          LPaint.StrokeWidth := 2;
+          ACanvas.DrawCircle(TPointF.Create(50, 50), 20, LPaint);
+          ACanvas.DrawCircle(TPointF.Create(150, 100), 25, LPaint);
+      
+          LPaint.Style := TSkPaintStyle.Fill;
+      
+          ACanvas.DrawCircle(TPointF.Create(50, 120), 15, LPaint);
+      
+          LPaint.Color := claOrange;
+          ACanvas.DrawCircle(TPointF.Create(170, 170), 15, LPaint);
+      
+          LPaint.Color := claOrange;
+          LPaint.Style := TSkPaintStyle.Fill;
+          ACanvas.DrawCircle(TPointF.Create(110, 160), 15, LPaint);
+      
+          LPaint.Color := claDarkOrange;
+          LPaint.Style := TSkPaintStyle.Stroke;
+          LPaint.StrokeWidth := 4;
+          ACanvas.DrawCircle(TPointF.Create(110, 160), 15, LPaint);
+        finally
+          ACanvas.Restore
+        end;
+      end;
 
