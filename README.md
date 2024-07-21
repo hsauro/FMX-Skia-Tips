@@ -1,5 +1,14 @@
 # FMX-Skia-Tips
+
 A list of tips for users of skia and FMX
+
+1. How do I draw a line or bezier curve witha rounded end?
+2. How do I create a dotted line?
+3. How do I draw a bezier curve using skia?
+4. How to draw circles
+5. How do I clear the canvas?
+6. How to draw a rounded rectangle?
+  
 
 **1. How do I draw a line or bezier curve witha rounded end?**
    
@@ -18,7 +27,7 @@ To draw a line with a rounded end in skia you need to change the StrokeCap to Ro
       ACanvas.DrawLine(x1, y1, x2, y2, LPaint);
     end;
 
-**2. How do I create a dotted line using skia4Delphi?**
+**2. How do I create a dotted line?**
 
 It's fairly straightforward to create a dotted line. It relies on using PathEffect and the method MakeDash.
 
