@@ -2,15 +2,16 @@
 
 A list of tips for users of skia and FMX
 
-1. How to draw a line or bezier curve witha rounded end?
-2. How to create a dotted line?
-3. How to draw a bezier curve using skia?
+1. How to draw a line or bezier curve witha rounded end
+2. How to create a dotted line
+3. How to draw a bezier curve using skia
 4. How to draw circles
-5. How do I clear the canvas?
-6. How to draw a rounded rectangle?
-7. How to draw some Text?
-8. How to draw a simple linear gradient?
-  
+5. How to clear the canvas
+6. How to draw a rounded rectangle
+7. How to draw some Text
+8. How to draw a simple linear gradient
+9. How to draw an oval.
+10.   
 
 **1. How to draw a line or bezier curve witha rounded end?**
    
@@ -220,6 +221,24 @@ The code above will generate the following output:
                         claBlue, claRed);
     
        ACanvas.DrawPaint(LPaint);
+      finally
+        ACanvas.Restore
+      end;
+    end;
+
+**9. How to draw an oval**
+
+    procedure TfrmMain.SkPaintBox15Draw(ASender: TObject; const ACanvas: ISkCanvas;
+        const ADest: TRectF; const AOpacity: Single);
+    var LPaint :ISkPaint;
+    begin
+      ACanvas.Save;
+      try
+        LPaint := TSkPaint.Create (TSKPaintStyle.Stroke);
+        LPaint.AntiAlias := True;
+        LPaint.StrokeWidth := 3;
+        LPaint.Color := TAlphaColors.Blueviolet;
+        ACanvas.DrawOval(TRectF.Create(20,50, 180, 90), LPaint);
       finally
         ACanvas.Restore
       end;
