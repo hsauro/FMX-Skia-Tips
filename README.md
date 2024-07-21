@@ -95,20 +95,19 @@ The code above will generate the following output:
         const ADest: TRectF; const AOpacity: Single);
     var LPaint :ISkPaint;
     begin
-    ACanvas.Save;
-    try
-      LPaint := TSkPaint.Create (TSKPaintStyle.Stroke);
-      LPaint.AntiAlias := True;
+     ACanvas.Save;
+     try
+       LPaint := TSkPaint.Create (TSKPaintStyle.Stroke);
+       LPaint.AntiAlias := True;
 
-      LPaint.StrokeWidth := 2;
-      ACanvas.DrawCircle(TPointF.Create(50, 50), 20, LPaint);
-      ACanvas.DrawCircle(TPointF.Create(150, 100), 25, LPaint);
+       LPaint.StrokeWidth := 2;
+       ACanvas.DrawCircle(TPointF.Create(50, 50), 20, LPaint);
+       ACanvas.DrawCircle(TPointF.Create(150, 100), 25, LPaint);
 
-      LPaint.Style := TSkPaintStyle.Fill;
-
-      ACanvas.DrawCircle(TPointF.Create(50, 120), 15, LPaint);
-    finally
-      ACanvas.Restore
+       LPaint.Style := TSkPaintStyle.Fill;
+       ACanvas.DrawCircle(TPointF.Create(50, 120), 15, LPaint);
+     finally
+       ACanvas.Restore
+     end;
     end;
-   end;
 
