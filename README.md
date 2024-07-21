@@ -9,6 +9,7 @@ A list of tips for users of skia and FMX
 5. How do I clear the canvas?
 6. How to draw a rounded rectangle?
 7. How to draw some Text?
+8. How to draw a simple linear gradient?
   
 
 **1. How to draw a line or bezier curve witha rounded end?**
@@ -198,6 +199,27 @@ The code above will generate the following output:
     
         LPaint.Color := claDarkGreen;
         ACanvas.DrawSimpleText('Some simple text', 10, 100, LFont, LPaint);
+      finally
+        ACanvas.Restore
+      end;
+    end;
+
+**8. How to draw a simple linear gradient?**
+
+    procedure TfrmMain.SkPaintBox14Draw(ASender: TObject; const ACanvas: ISkCanvas;
+        const ADest: TRectF; const AOpacity: Single);
+    var LPaint :ISkPaint;
+        LGradient : ISkShader;
+    begin
+      ACanvas.Save;
+      try
+        LPaint := TSkPaint.Create (TSKPaintStyle.Stroke);
+        LPaint.AntiAlias := True;
+    
+        LPaint.Shader := TSkShader.MakeGradientLinear(TPointF.Create(0, 0), TPointF.Create(180, 10),
+                        claBlue, claRed);
+    
+       ACanvas.DrawPaint(LPaint);
       finally
         ACanvas.Restore
       end;
