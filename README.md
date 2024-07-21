@@ -144,4 +144,23 @@ The code above will generate the following output:
           ACanvas.Restore
         end;
       end;
+      
+**6. How to draw a rounded rectangle?**
+
+      procedure TfrmMain.SkPaintBox12Draw(ASender: TObject; const ACanvas: ISkCanvas;
+          const ADest: TRectF; const AOpacity: Single);
+      var LPaint :ISkPaint;
+      begin
+        ACanvas.Save;
+        try
+          LPaint := TSkPaint.Create (TSKPaintStyle.Stroke);
+          LPaint.AntiAlias := True;
+      
+          LPaint.StrokeWidth := 2;
+          LPaint.Color := TAlphaColors.Darkred;
+          ACanvas.DrawRoundRect(TRectF.Create(50, 40, 150, 140), 10, 10, LPaint);
+        finally
+          ACanvas.Restore
+        end;
+      end;
 
