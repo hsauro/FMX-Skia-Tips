@@ -110,5 +110,5 @@ The code above will generate the following output:
     finally
       ACanvas.Restore
     end;
-  end;
+   end;
 
