@@ -94,7 +94,7 @@ The code above will generate the following output:
     procedure TfrmMain.SkPaintBox3Draw(ASender: TObject; const ACanvas: ISkCanvas;
         const ADest: TRectF; const AOpacity: Single);
     var LPaint :ISkPaint;
-   begin
+    begin
     ACanvas.Save;
     try
       LPaint := TSkPaint.Create (TSKPaintStyle.Stroke);
