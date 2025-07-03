@@ -335,27 +335,27 @@ end;
 
    **12 How to save a canvas drawing to a pdf file**
 
-          procedure TRRGraph.exportToPDF (filename : string);
-          var LPDFStream: TStream;
-              LDocument: ISkDocument;
-              LCanvas : ISkCanvas;
-              i : integer;
-          begin
-            LPDFStream := TFileStream.Create(fileName, fmCreate);
+      procedure TRRGraph.exportToPDF (filename : string);
+      var LPDFStream: TStream;
+          LDocument: ISkDocument;
+          LCanvas : ISkCanvas;
+          i : integer;
+      begin
+        LPDFStream := TFileStream.Create(fileName, fmCreate);
+        try
+          LDocument := TSkDocument.MakePDF(LPDFStream);
+          try
+            LCanvas := LDocument.BeginPage(Width, Height);
             try
-              LDocument := TSkDocument.MakePDF(LPDFStream);
-              try
-                LCanvas := LDocument.BeginPage(Width, Height);
-                try
-                 LCanvas.Clear(TAlphaColors.White);
-                 drawToCanvas(LCanvas);
-                finally
-                  LDocument.EndPage;
-                end;
-              finally
-                LDocument.Close;
-              end;
+             LCanvas.Clear(TAlphaColors.White);
+             drawToCanvas(LCanvas);
             finally
-              LPDFStream.Free;
+              LDocument.EndPage;
             end;
+          finally
+            LDocument.Close;
+          end;
+        finally
+          LPDFStream.Free;
+     end;
           end;
