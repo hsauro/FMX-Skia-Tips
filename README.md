@@ -14,6 +14,7 @@ A list of tips for users of skia and FMX
 10. How to draw arcs
 11. How to load an image
 12. How to create a fill of lines hatch horizontal lines
+13. How to save a canvas drawing to a pdf file
 
 **1. How to draw a line or bezier curve witha rounded end?**
    
@@ -331,3 +332,30 @@ end;
           ACanvas.Restore
         end;
       end;
+
+   **12 How to save a canvas drawing to a pdf file**
+
+            procedure TRRGraph.exportToPDF (filename : string);
+            var LPDFStream: TStream;
+                LDocument: ISkDocument;
+                LCanvas : ISkCanvas;
+                i : integer;
+            begin
+              LPDFStream := TFileStream.Create(fileName, fmCreate);
+              try
+                LDocument := TSkDocument.MakePDF(LPDFStream);
+                try
+                  LCanvas := LDocument.BeginPage(Width, Height);
+                  try
+                   LCanvas.Clear(TAlphaColors.White);
+                   drawToCanvas(LCanvas);
+                  finally
+                    LDocument.EndPage;
+                  end;
+                finally
+                  LDocument.Close;
+                end;
+              finally
+                LPDFStream.Free;
+              end;
+            end;
