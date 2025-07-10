@@ -15,6 +15,7 @@ A list of tips for users of skia and FMX
 11. How to load an image
 12. How to create a fill of lines hatch horizontal lines
 13. How to save a canvas drawing to a pdf file
+14. How to apply a matrix tranform to a path?
 
 **1. How to draw a line or bezier curve witha rounded end?**
    
@@ -333,7 +334,7 @@ end;
         end;
       end;
 
-   **12 How to save a canvas drawing to a pdf file**
+   **13 How to save a canvas drawing to a pdf file**
 
       procedure TRRGraph.exportToPDF (filename : string);
       var LPDFStream: TStream;
@@ -359,3 +360,8 @@ end;
           LPDFStream.Free;
         end;
       end;
+
+      **14. How to apply a matrix tranform to a path?**
+
+      M := TMatrix.CreateRotation(DegToRad(90));  
+      PathData.ApplyMatrix(M);
