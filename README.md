@@ -369,8 +369,6 @@ end;
 
 **14. How to apply a matrix tranform to a path?**
 
-So, just change to "RPath := RPath.Transform(LMatrix);". The full code:
-
       var
         RPaint: ISkPaint;
         RPath: ISkPath;
