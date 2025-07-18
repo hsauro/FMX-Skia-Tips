@@ -16,6 +16,7 @@ A list of tips for users of skia and FMX
 12. How to create a fill of lines hatch horizontal lines
 13. How to save a canvas drawing to a pdf file
 14. How to apply a matrix tranform to a path?
+15. How to draw a polygon?
 
 **1. How to draw a line or bezier curve witha rounded end?**
    
@@ -365,3 +366,47 @@ end;
 
       M := TMatrix.CreateRotation(DegToRad(90));  
       PathData.ApplyMatrix(M);
+
+**14. How to apply a matrix tranform to a path?**
+
+So, just change to "RPath := RPath.Transform(LMatrix);". The full code:
+
+var
+  RPaint: ISkPaint;
+  RPath: ISkPath;
+  RPathBuilder: ISkPathBuilder;
+  LMatrix: TMatrix;
+  LPathBounds: TRectF;
+begin
+  RPaint := TSkPaint.Create;
+  RPaint.Color := TAlphaColors.Black;
+  RPathBuilder := TSkPathBuilder.Create;
+  RPathBuilder.AddRect(RectF(10, 10, 50, 70));
+  RPath := RPathBuilder.Detach;
+  LPathBounds := RPath.Bounds;
+  LMatrix := TMatrix.CreateTranslation(-LPathBounds.CenterPoint.X, -LPathBounds.CenterPoint.Y) *
+    TMatrix.CreateRotation(DegToRad(AAngle) *
+    TMatrix.CreateTranslation(LPathBounds.CenterPoint.X, LPathBounds.CenterPoint.Y));
+
+  RPath := RPath.Transform(LMatrix);
+  ACanvas.DrawPath(RPath, RPaint);
+end;
+
+**15. How to draw a polygon?**
+
+var pt : TPointF;
+    pathBuilder: ISkPathBuilder;
+    path : ISKPath;
+    i : integer;
+begin
+  LPaint.StrokeWidth := 2;
+  LPaint.Style :=  TSkPaintStyle.Stroke;
+  pathBuilder := TSkPathBuilder.Create;
+
+  pathBuilder.MoveTo (points[0]);
+  for i := 1 to points.Count - 1 do
+      pathBuilder.LineTo(points[i]);
+  pathBuilder.LineTo (points[0]);
+  path := pathBuilder.Detach;
+  ACanvas.DrawPath(path, LPaint); 
+end;
