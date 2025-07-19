@@ -416,55 +416,55 @@ Here are two ways to rotate an ellipse.
 
 1. Use the built-in Skia tranformation methods
 
-      procedure DrawRotatedEllipse(Canvas: ISkCanvas; CenterX, CenterY, Width, Height: Single; RotationDegrees: Single);
-      var
-        Paint: ISkPaint;
-      begin
-        // Create paint for the ellipse
-        Paint := TSkPaint.Create;
-        Paint.Style := TSkPaintStyle.Stroke; // or Fill for filled ellipse
-        Paint.Color := TAlphaColors.Blue;
-        Paint.StrokeWidth := 2;
-        
-        // Save the current canvas state
-        Canvas.Save;
-        
-        try
-          // Translate to the center point
-          Canvas.Translate(CenterX, CenterY);
-          
-          // Rotate by the specified degrees
-          Canvas.Rotate(RotationDegrees);
-          
-          // Draw the ellipse centered at origin (since we translated)
-          Canvas.DrawOval(TRectF.Create(-Width/2, -Height/2, Width/2, Height/2), Paint);
-          
-        finally
-          // Restore the canvas state
-          Canvas.Restore;
-        end;
-      end;
+         procedure DrawRotatedEllipse(Canvas: ISkCanvas; CenterX, CenterY, Width, Height: Single; RotationDegrees: Single);
+         var
+           Paint: ISkPaint;
+         begin
+           // Create paint for the ellipse
+           Paint := TSkPaint.Create;
+           Paint.Style := TSkPaintStyle.Stroke; // or Fill for filled ellipse
+           Paint.Color := TAlphaColors.Blue;
+           Paint.StrokeWidth := 2;
+           
+           // Save the current canvas state
+           Canvas.Save;
+           
+           try
+             // Translate to the center point
+             Canvas.Translate(CenterX, CenterY);
+             
+             // Rotate by the specified degrees
+             Canvas.Rotate(RotationDegrees);
+             
+             // Draw the ellipse centered at origin (since we translated)
+             Canvas.DrawOval(TRectF.Create(-Width/2, -Height/2, Width/2, Height/2), Paint);
+             
+           finally
+             // Restore the canvas state
+             Canvas.Restore;
+           end;
+         end;
 
    2. Use the Delphi TMatrix transformation methods
   
-         procedure DrawRotatedEllipseWithMatrix(Canvas: ISkCanvas; CenterX, CenterY, Width, Height: Single; RotationDegrees: Single);
-      var
-        Paint: ISkPaint;
-        Matrix: TMatrix;
-      begin
-        Paint := TSkPaint.Create;
-        Paint.Style := TSkPaintStyle.Stroke;
-        Paint.Color := TAlphaColors.Red;
-        
-        Canvas.Save;
-        try
-          // Create transformation matrix
-          Matrix := TMatrix.CreateTranslation(CenterX, CenterY) * 
-                    TMatrix.CreateRotation(DegToRad(RotationDegrees));
-          
-          Canvas.SetMatrix(Matrix);
-          Canvas.DrawOval(TRectF.Create(-Width/2, -Height/2, Width/2, Height/2), Paint);
-        finally
-          Canvas.Restore;
-        end;
-      end;
+            procedure DrawRotatedEllipseWithMatrix(Canvas: ISkCanvas; CenterX, CenterY, Width, Height: Single; RotationDegrees: Single);
+         var
+           Paint: ISkPaint;
+           Matrix: TMatrix;
+         begin
+           Paint := TSkPaint.Create;
+           Paint.Style := TSkPaintStyle.Stroke;
+           Paint.Color := TAlphaColors.Red;
+           
+           Canvas.Save;
+           try
+             // Create transformation matrix
+             Matrix := TMatrix.CreateTranslation(CenterX, CenterY) * 
+                       TMatrix.CreateRotation(DegToRad(RotationDegrees));
+             
+             Canvas.SetMatrix(Matrix);
+             Canvas.DrawOval(TRectF.Create(-Width/2, -Height/2, Width/2, Height/2), Paint);
+           finally
+             Canvas.Restore;
+           end;
+         end;
