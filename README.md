@@ -15,8 +15,9 @@ A list of tips for users of skia and FMX
 11. How to load an image
 12. How to create a fill of lines hatch horizontal lines
 13. How to save a canvas drawing to a pdf file
-14. How to apply a matrix tranform to a path?
-15. How to draw a polygon?
+14. How to apply a matrix tranform to a path.
+15. How to draw a polygon.
+16. How to rotate an ellipse.
 
 **1. How to draw a line or bezier curve witha rounded end?**
    
@@ -390,7 +391,7 @@ end;
         ACanvas.DrawPath(RPath, RPaint);
       end;
 
-**15. How to draw a polygon?**
+**15. How to draw a polygon**
    
       var pt : TPointF;
           pathBuilder: ISkPathBuilder;
@@ -407,4 +408,63 @@ end;
         pathBuilder.LineTo (points[0]);
         path := pathBuilder.Detach;
         ACanvas.DrawPath(path, LPaint); 
+      end;
+
+16. How to rotate an ellipse.
+
+Here are two ways to rotate an ellipse. 
+
+1. Use the built-in Skia tranformation methods
+
+      procedure DrawRotatedEllipse(Canvas: ISkCanvas; CenterX, CenterY, Width, Height: Single; RotationDegrees: Single);
+      var
+        Paint: ISkPaint;
+      begin
+        // Create paint for the ellipse
+        Paint := TSkPaint.Create;
+        Paint.Style := TSkPaintStyle.Stroke; // or Fill for filled ellipse
+        Paint.Color := TAlphaColors.Blue;
+        Paint.StrokeWidth := 2;
+        
+        // Save the current canvas state
+        Canvas.Save;
+        
+        try
+          // Translate to the center point
+          Canvas.Translate(CenterX, CenterY);
+          
+          // Rotate by the specified degrees
+          Canvas.Rotate(RotationDegrees);
+          
+          // Draw the ellipse centered at origin (since we translated)
+          Canvas.DrawOval(TRectF.Create(-Width/2, -Height/2, Width/2, Height/2), Paint);
+          
+        finally
+          // Restore the canvas state
+          Canvas.Restore;
+        end;
+      end;
+
+   2. Use the Delphi TMatrix transformation methods
+  
+         procedure DrawRotatedEllipseWithMatrix(Canvas: ISkCanvas; CenterX, CenterY, Width, Height: Single; RotationDegrees: Single);
+      var
+        Paint: ISkPaint;
+        Matrix: TMatrix;
+      begin
+        Paint := TSkPaint.Create;
+        Paint.Style := TSkPaintStyle.Stroke;
+        Paint.Color := TAlphaColors.Red;
+        
+        Canvas.Save;
+        try
+          // Create transformation matrix
+          Matrix := TMatrix.CreateTranslation(CenterX, CenterY) * 
+                    TMatrix.CreateRotation(DegToRad(RotationDegrees));
+          
+          Canvas.SetMatrix(Matrix);
+          Canvas.DrawOval(TRectF.Create(-Width/2, -Height/2, Width/2, Height/2), Paint);
+        finally
+          Canvas.Restore;
+        end;
       end;
