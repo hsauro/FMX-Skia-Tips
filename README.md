@@ -448,23 +448,23 @@ Here are two ways to rotate an ellipse.
    2. Use the Delphi TMatrix transformation methods
   
             procedure DrawRotatedEllipseWithMatrix(Canvas: ISkCanvas; CenterX, CenterY, Width, Height: Single; RotationDegrees: Single);
-         var
-           Paint: ISkPaint;
-           Matrix: TMatrix;
-         begin
-           Paint := TSkPaint.Create;
-           Paint.Style := TSkPaintStyle.Stroke;
-           Paint.Color := TAlphaColors.Red;
-           
-           Canvas.Save;
-           try
-             // Create transformation matrix
-             Matrix := TMatrix.CreateTranslation(CenterX, CenterY) * 
-                       TMatrix.CreateRotation(DegToRad(RotationDegrees));
-             
-             Canvas.SetMatrix(Matrix);
-             Canvas.DrawOval(TRectF.Create(-Width/2, -Height/2, Width/2, Height/2), Paint);
-           finally
-             Canvas.Restore;
+           var
+             Paint: ISkPaint;
+             Matrix: TMatrix;
+           begin
+              Paint := TSkPaint.Create;
+              Paint.Style := TSkPaintStyle.Stroke;
+              Paint.Color := TAlphaColors.Red;
+              
+              Canvas.Save;
+              try
+                // Create transformation matrix
+                Matrix := TMatrix.CreateTranslation(CenterX, CenterY) * 
+                          TMatrix.CreateRotation(DegToRad(RotationDegrees));
+                
+                Canvas.SetMatrix(Matrix);
+                Canvas.DrawOval(TRectF.Create(-Width/2, -Height/2, Width/2, Height/2), Paint);
+              finally
+                Canvas.Restore;
+              end;
            end;
-         end;
